@@ -489,4 +489,4 @@ Then SSH in and use `sourabh-ai`, or point any OpenAI-compatible client at `http
 
 ## Credits
 
-Inspired by and compatible with [TinyOS](https://github.com/shanselman/TinyOS) by Scott Hanselman (BSD-2-Clause). Sourabh OS is a fresh Python implementation.
+Inspired by and compatible with [TinyOS](https://github.com/shanselman/TinyOS) by [@shanselman](https://github.com/shanselman) (BSD-2-Clause). Sourabh OS is a fresh Python implementation.

@@ -8,7 +8,7 @@ Boot it in a virtual machine (or on a real PC) and you land on a full desktop bu
 
 ---
 
-## ELI10: What Is This?
+## What Is This?
 
 > Imagine you could buy a computer that, right when it turns on, already knows how to talk to AI. No setup, no installing Python, no figuring out API keys — it just works. That's Sourabh OS.
 
@@ -138,7 +138,7 @@ sourabh-os/
 
 ### `providers.py` — Talking to AI Models
 
-> ELI10: This file is like a universal translator. Whether you're talking to a local Ollama model, Claude, or ChatGPT, this file makes it look the same to the rest of the code.
+> This file is like a universal translator. Whether you're talking to a local Ollama model, Claude, or ChatGPT, this file makes it look the same to the rest of the code.
 
 A model is always referred to as `"provider/model-name"`:
 - `"ollama/qwen2.5:0.5b"` → local model running on your machine
@@ -151,7 +151,7 @@ All three implement the same interface: `chat(messages, stream=True, ...)`. The 
 
 ### `jobs.py` — Batch AI Job Engine
 
-> ELI10: Imagine you have 500 customer reviews and you want AI to classify each one as positive, negative, or neutral. You don't want to do them one at a time. AI Jobs lets you say "do all 500, use 4 workers at once, retry any that fail, and save the results."
+> Imagine you have 500 customer reviews and you want AI to classify each one as positive, negative, or neutral. You don't want to do them one at a time. AI Jobs lets you say "do all 500, use 4 workers at once, retry any that fail, and save the results."
 
 A **job** is a JSON file that describes:
 - **What to do** — a system prompt + a prompt template with `{input}` placeholder
@@ -201,7 +201,7 @@ sourabh-ai jobs                                      # list job runs
 
 ## The Teaching Kernel (`sourabhos/core/vm.py`)
 
-> ELI10: Inside Sourabh OS there's a tiny pretend-computer. You can write little programs for it in assembly language (very low-level code close to what a real CPU understands) and then watch it run them — see exactly how memory gets allocated, how the CPU switches between programs, everything.
+> Inside Sourabh OS there's a tiny pretend-computer. You can write little programs for it in assembly language (very low-level code close to what a real CPU understands) and then watch it run them — see exactly how memory gets allocated, how the CPU switches between programs, everything.
 
 TinyVM is a Python re-implementation of Scott Hanselman's [TinyOS](https://github.com/shanselman/TinyOS). It has:
 
@@ -260,7 +260,7 @@ Included examples:
 
 ### `wm.py` — Window Manager
 
-> ELI10: This is the code that draws windows on screen and lets you move/resize/close them with your mouse — like a very simple version of Windows' window manager.
+> This is the code that draws windows on screen and lets you move/resize/close them with your mouse — like a very simple version of Windows' window manager.
 
 `Desktop` manages a list of `Window` objects. Each `Window` wraps an `App`. The window manager:
 - Draws the desktop background

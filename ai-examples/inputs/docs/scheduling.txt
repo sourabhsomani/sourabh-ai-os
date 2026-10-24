@@ -1,0 +1,5 @@
+A CPU scheduler decides which ready process runs next. Round-robin gives each process a
+fixed time slice and rotates through the ready queue, which is fair but can hurt
+interactive tasks. Priority scheduling always runs the most important ready process, and
+usually needs ageing to stop low-priority work from starving forever. Modern kernels mix
+both ideas with per-core run queues and load balancing.

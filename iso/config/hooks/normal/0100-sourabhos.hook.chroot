@@ -1,0 +1,39 @@
+#!/bin/sh
+# Runs inside the image while it is being built.
+set -e
+
+# The 'sourabh' user owns the desktop session (password: sourabh)
+if ! id sourabh >/dev/null 2>&1; then
+    useradd -m -s /bin/bash -G sudo,video,audio,input,netdev sourabh 2>/dev/null \
+        || useradd -m -s /bin/bash -G sudo,video,audio,input sourabh
+fi
+echo 'sourabh:sourabh' | chpasswd
+
+# We create the user ourselves, so stop live-config from creating its own
+# (it skips user setup when the user-setup package is absent).
+apt-get purge -y user-setup || true
+
+chmod 0440 /etc/sudoers.d/sourabhos
+chmod 0755 /usr/local/bin/sourabhos /usr/local/bin/sourabh-ai
+# let the desktop user manage local models
+getent group ollama >/dev/null && usermod -a -G ollama sourabh || true
+chown -R sourabh:sourabh /home/sourabh
+
+# Boot to a text target; the autologin + ~/.bash_profile starts X + Sourabh OS
+systemctl set-default multi-user.target
+
+# Name the system "Sourabh OS" (keeps Debian's ID so apt keeps working)
+for f in /usr/lib/os-release /etc/os-release; do
+    [ -f "$f" ] && [ ! -L "$f" ] && sed -i \
+        -e 's/^PRETTY_NAME=.*/PRETTY_NAME="Sourabh OS 1.0"/' \
+        -e 's/^NAME=.*/NAME="Sourabh OS"/' "$f"
+done
+
+# Boot animation: Sourabh OS Plymouth theme, baked into the initramfs
+if command -v plymouth-set-default-theme >/dev/null; then
+    plymouth-set-default-theme sourabhos
+    update-initramfs -u -k all || true
+fi
+
+# Compile Python once so first boot is fast
+python3 -m compileall -q /opt/sourabhos || true

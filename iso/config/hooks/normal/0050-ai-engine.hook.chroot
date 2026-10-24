@@ -1,0 +1,33 @@
+#!/bin/sh
+# Install the local AI engine (Ollama) and optionally bake models into the image.
+# Network problems here only print a warning: the ISO still builds, and the
+# engine can be installed later from the Terminal with 'install-ai-engine'.
+set -e
+
+if ! /usr/local/sbin/sourabh-install-ai-engine; then
+    echo "W: ======================================================================"
+    echo "W: Could not download the AI engine (Ollama). The ISO will still build."
+    echo "W: Inside Sourabh OS, run 'install-ai-engine' in the Terminal, or add an"
+    echo "W: API key in Models -> Providers."
+    echo "W: ======================================================================"
+fi
+
+# Models listed at build time (PRELOAD_MODELS) ship inside the ISO,
+# so AI works offline on first boot.
+if [ -x /usr/bin/ollama ] && [ -s /etc/sourabhos/preload-models ]; then
+    export OLLAMA_MODELS=/usr/share/ollama/.ollama/models HOME=/usr/share/ollama
+    /usr/bin/ollama serve >/tmp/ollama-build.log 2>&1 &
+    PID=$!
+    for i in $(seq 1 60); do curl -fs http://127.0.0.1:11434/api/version >/dev/null && break; sleep 1; done
+    for m in $(cat /etc/sourabhos/preload-models); do
+        echo "I: preloading model $m"
+        /usr/bin/ollama pull "$m" || echo "W: could not pull $m (download it later in the Models app)"
+    done
+    kill $PID || true
+    wait $PID 2>/dev/null || true
+    chown -R ollama:ollama /usr/share/ollama
+fi
+
+# SSH is installed for using this machine as a remote AI box, but stays off
+# until you change the default password:  passwd && sudo systemctl enable --now ssh
+systemctl disable ssh.service >/dev/null 2>&1 || true

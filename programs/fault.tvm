@@ -1,0 +1,6 @@
+; fault.tvm - writes outside its address space: the kernel kills it
+movi    r1, $99999
+movi    r2, $7
+movrm   r1, r2        ; memory protection fault!
+printr  r2            ; never reached
+exit

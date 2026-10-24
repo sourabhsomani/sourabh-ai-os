@@ -1,0 +1,10 @@
+{
+  "name": "Translate phrases to Hindi",
+  "model": "ollama/qwen2.5:0.5b",
+  "prompt": "Translate into Hindi (Devanagari). Reply with the translation only.\n\n{input}",
+  "inputs": {"type": "lines", "path": "inputs/phrases.txt"},
+  "concurrency": 3,
+  "temperature": 0.1,
+  "max_tokens": 120,
+  "output": "text"
+}

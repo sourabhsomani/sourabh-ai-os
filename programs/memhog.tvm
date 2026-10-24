@@ -1,0 +1,17 @@
+; memhog.tvm - allocate 160 bytes on the heap and fill it (watch the page faults)
+movi    r1, $160
+alloc   r1, r2        ; r2 = block address
+printr  r2
+movr    r3, r2        ; write pointer
+movi    r5, $40       ; 40 ints
+movi    r6, $-41
+movrm   r3, r5        ; loop: [r3] = r5
+addi    r3, $4
+addi    r5, $-1
+cmpi    r5, $0
+jgt     r6
+movi    r4, $156
+addr    r4, r2
+printm  r4            ; last int written (1)
+freememory r2
+exit

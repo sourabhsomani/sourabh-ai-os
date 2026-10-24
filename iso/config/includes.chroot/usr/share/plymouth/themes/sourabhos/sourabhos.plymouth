@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Sourabh OS
+Description=Sourabh OS boot screen
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/sourabhos
+ScriptFile=/usr/share/plymouth/themes/sourabhos/sourabhos.script

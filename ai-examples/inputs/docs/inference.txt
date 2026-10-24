@@ -1,0 +1,5 @@
+Running a large language model locally is mostly limited by memory bandwidth, not raw
+compute. Quantisation stores weights in 4 or 8 bits instead of 16, cutting memory use by
+two to four times with a small loss in quality. A 7-billion-parameter model at 4 bits needs
+roughly 4-5 GB of RAM or VRAM. GPUs are much faster than CPUs because their memory is
+far faster, but small models run acceptably on a modern CPU.

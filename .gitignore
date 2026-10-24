@@ -1,0 +1,66 @@
+# ── Build output ─────────────────────────────────────────────────────────────
+out/
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-log.txt
+pip-wheel-metadata/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ── Secrets / local config ────────────────────────────────────────────────────
+.env
+.env.*
+# Claude Code project directory (local permissions, memory, session data)
+.claude/
+
+# ── Sourabh OS runtime data ───────────────────────────────────────────────────
+# User home created at runtime; holds API keys, job results, downloaded models
+SourabhHome/
+
+# ── Tests / coverage ─────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+
+# ── Live-build intermediate files (ISO build) ─────────────────────────────────
+.build/
+cache/
+chroot/
+binary/
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+
+# ── IDEs ─────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ── OS junk ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor swap / backup files ────────────────────────────────────────────────
+*.swp
+*.swo
+*~

@@ -1,0 +1,20 @@
+; producer.tvm - fill shared memory region 1 under lock 1, then signal event 1
+; run together with consumer.tvm:   run producer.tvm consumer.tvm
+movi    r1, $1
+mapsharedmem r1, r2   ; r2 = address of shared region 1
+movi    r4, $1
+acquirelock r4        ; take lock 1
+movi    r3, $10       ; first value
+movi    r5, $4        ; 4 values (16-byte region)
+movi    r6, $-50      ; offset back to loop
+movrm   r2, r3        ; loop: [r2] = r3
+addi    r2, $4
+addi    r3, $10
+addi    r5, $-1
+cmpi    r5, $0
+jgt     r6
+releaselock r4
+movi    r7, $1
+signalevent r7        ; wake the consumer
+printr  r3
+exit

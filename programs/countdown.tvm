@@ -1,0 +1,10 @@
+; countdown.tvm - prints 5..1, sleeping 20 clock cycles between numbers
+movi    r1, $5
+movi    r2, $20
+movi    r6, $-33
+printr  r1            ; loop
+sleep   r2
+addi    r1, $-1
+cmpi    r1, $0
+jgt     r6
+exit

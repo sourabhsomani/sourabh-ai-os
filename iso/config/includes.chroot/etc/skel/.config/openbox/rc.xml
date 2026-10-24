@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sourabh OS: minimal Openbox setup. It only manages outside apps such as
+     Chrome; the Sourabh desktop itself stays full-screen underneath. -->
+<openbox_config xmlns="http://openbox.org/3.4/rc">
+  <focus><focusNew>yes</focusNew><followMouse>no</followMouse></focus>
+  <placement><policy>Smart</policy></placement>
+  <theme><name>Clearlooks</name><titleLayout>NLIMC</titleLayout></theme>
+  <desktops><number>1</number></desktops>
+  <keyboard>
+    <!-- Alt+Tab: switch between Chrome and the Sourabh desktop -->
+    <keybind key="A-Tab"><action name="NextWindow"><dialog>icons</dialog></action></keybind>
+    <keybind key="A-S-Tab"><action name="PreviousWindow"><dialog>icons</dialog></action></keybind>
+    <!-- Super+D: jump back to the Sourabh desktop -->
+    <keybind key="W-d"><action name="Execute"><command>wmctrl -x -a sourabhos</command></action></keybind>
+    <!-- Alt+F4 is NOT bound here: the Sourabh desktop uses it for its own windows,
+         and Chrome handles Alt+F4 itself. -->
+  </keyboard>
+  <mouse>
+    <dragThreshold>4</dragThreshold>
+    <doubleClickTime>400</doubleClickTime>
+    <context name="Frame">
+      <mousebind button="A-Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="A-Left" action="Drag"><action name="Move"/></mousebind>
+    </context>
+    <context name="Titlebar">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximize"/></mousebind>
+    </context>
+    <context name="Client">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Right" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+    </context>
+    <context name="Close"><mousebind button="Left" action="Click"><action name="Close"/></mousebind></context>
+    <context name="Maximize"><mousebind button="Left" action="Click"><action name="ToggleMaximize"/></mousebind></context>
+    <context name="Iconify"><mousebind button="Left" action="Click"><action name="Iconify"/></mousebind></context>
+    <context name="BLCorner"><mousebind button="Left" action="Drag"><action name="Resize"/></mousebind></context>
+    <context name="BRCorner"><mousebind button="Left" action="Drag"><action name="Resize"/></mousebind></context>
+    <context name="Bottom"><mousebind button="Left" action="Drag"><action name="Resize"/></mousebind></context>
+    <context name="Left"><mousebind button="Left" action="Drag"><action name="Resize"/></mousebind></context>
+    <context name="Right"><mousebind button="Left" action="Drag"><action name="Resize"/></mousebind></context>
+  </mouse>
+</openbox_config>

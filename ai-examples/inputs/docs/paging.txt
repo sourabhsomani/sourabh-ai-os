@@ -1,0 +1,5 @@
+Virtual memory lets every process believe it owns a large, contiguous address space.
+The operating system splits that space into fixed-size pages and maps each page to a
+physical frame only when it is first touched (demand paging). When physical memory is
+full, a victim page is chosen - often the least recently used - written to swap, and its
+frame reused. Too much swapping is called thrashing and makes the system crawl.

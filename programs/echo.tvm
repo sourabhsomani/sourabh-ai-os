@@ -1,0 +1,7 @@
+; echo.tvm - reads a number (terminal: input 21) and prints it and its double
+input   r1
+printr  r1
+movr    r2, r1
+addr    r2, r1
+printr  r2
+exit

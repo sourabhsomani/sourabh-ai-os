@@ -1,0 +1,9 @@
+#!/bin/sh
+# Bake Google Chrome into the image when built with CHROME=1 (the default).
+# A download problem only prints a warning; use 'install-chrome' later instead.
+[ -f /etc/sourabhos/with-chrome ] || exit 0
+/usr/local/sbin/sourabh-install-chrome || {
+    echo "W: Could not download Google Chrome. The ISO will still build;"
+    echo "W: run 'install-chrome' in the Sourabh OS Terminal later."
+}
+exit 0

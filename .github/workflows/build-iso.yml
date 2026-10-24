@@ -1,0 +1,25 @@
+name: Build Sourabh OS ISO
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pygame
+      - run: python -m tests.test_vm && python -m tests.test_ai && SDL_VIDEODRIVER=dummy python -m tests.test_desktop && SDL_VIDEODRIVER=dummy python -m tests.test_extapps
+  iso:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash iso/build-in-docker.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sourabhos-iso
+          path: out/sourabhos-amd64.iso*
+          compression-level: 0

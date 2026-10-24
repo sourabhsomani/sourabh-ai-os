@@ -1,0 +1,14 @@
+; fib.tvm - first 12 Fibonacci numbers
+movi    r1, $0        ; a
+movi    r2, $1        ; b
+movi    r5, $12       ; how many
+movi    r6, $-64      ; offset back to loop
+printr  r1            ; loop: print a
+movr    r3, r1
+addr    r3, r2        ; r3 = a + b
+movr    r1, r2        ; a = b
+movr    r2, r3        ; b = a + b
+addi    r5, $-1       ; count--
+cmpi    r5, $0
+jgt     r6            ; while count > 0
+exit

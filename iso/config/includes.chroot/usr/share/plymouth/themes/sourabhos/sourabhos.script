@@ -1,0 +1,48 @@
+# Sourabh OS boot screen (Plymouth script theme)
+Window.SetBackgroundTopColor(0.04, 0.05, 0.09);
+Window.SetBackgroundBottomColor(0.09, 0.13, 0.20);
+
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.x = Window.GetX() + Window.GetWidth() / 2 - logo.image.GetWidth() / 2;
+logo.y = Window.GetY() + Window.GetHeight() / 2 - logo.image.GetHeight() / 2 - 40;
+logo.sprite.SetPosition(logo.x, logo.y, 1);
+logo.sprite.SetOpacity(0);
+
+bar.w = 340;
+bar.x = Window.GetX() + Window.GetWidth() / 2 - bar.w / 2;
+bar.y = logo.y + logo.image.GetHeight() + 20;
+bar.bg = Sprite(Image("progress-bg.png").Scale(bar.w, 6));
+bar.bg.SetPosition(bar.x, bar.y, 1);
+bar.fill_image = Image("progress.png");
+bar.fill = Sprite();
+bar.fill.SetPosition(bar.x, bar.y, 2);
+
+fade = 0;
+fun refresh_cb() {
+    if (fade < 1) { fade += 0.04; logo.sprite.SetOpacity(fade); }
+}
+Plymouth.SetRefreshFunction(refresh_cb);
+
+fun progress_cb(duration, progress) {
+    w = Math.Int(bar.w * progress);
+    if (w < 6) w = 6;
+    bar.fill.SetImage(bar.fill_image.Scale(w, 6));
+}
+Plymouth.SetBootProgressFunction(progress_cb);
+
+msg.sprite = Sprite();
+fun message_cb(text) {
+    img = Image.Text(text, 0.6, 0.65, 0.72);
+    msg.sprite.SetImage(img);
+    msg.sprite.SetPosition(Window.GetX() + Window.GetWidth() / 2 - img.GetWidth() / 2, bar.y + 24, 3);
+}
+Plymouth.SetMessageFunction(message_cb);
+
+# Password prompt (only used if a disk is encrypted)
+fun display_password_cb(prompt, bullets) {
+    s = prompt + "  ";
+    for (i = 0; i < bullets; i++) s += "*";
+    message_cb(s);
+}
+Plymouth.SetDisplayPasswordFunction(display_password_cb);

@@ -1,0 +1,8 @@
+; hello.tvm - count from 1 to 5
+movi    r1, $1        ; counter = 1
+movi    r3, $-24      ; jump offset back to 'print'
+printr  r1            ; print: show counter
+incr    r1            ; counter++
+cmpi    r1, $6        ; compare with 6
+jlt     r3            ; if counter < 6 go back to print
+exit

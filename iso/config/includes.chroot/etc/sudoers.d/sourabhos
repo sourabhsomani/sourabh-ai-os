@@ -1,0 +1,3 @@
+# Let the desktop's Shut down / Restart buttons, 'install-chrome' and
+# 'install-ai-engine' work without a password
+sourabh ALL=(root) NOPASSWD: /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/local/sbin/sourabh-install-chrome, /usr/local/sbin/sourabh-install-ai-engine

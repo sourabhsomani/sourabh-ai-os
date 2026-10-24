@@ -1,0 +1,20 @@
+#!/bin/sh
+# Download and install the local AI engine (Ollama). Used while building the ISO,
+# and by the 'install-ai-engine' Terminal command if the build couldn't reach the internet.
+set -e
+if [ -x /usr/bin/ollama ]; then echo "AI engine already installed: $(/usr/bin/ollama -v 2>/dev/null | tail -1)"; exit 0; fi
+echo "downloading Ollama…"
+curl -fsSL --retry 3 --retry-delay 5 -o /tmp/ollama.tar.zst https://ollama.com/download/ollama-linux-amd64.tar.zst
+echo "unpacking…"
+tar --zstd -xf /tmp/ollama.tar.zst -C /usr
+rm -f /tmp/ollama.tar.zst
+id ollama >/dev/null 2>&1 || useradd -r -s /bin/false -U -m -d /usr/share/ollama ollama
+mkdir -p /usr/share/ollama/.ollama/models
+chown -R ollama:ollama /usr/share/ollama
+getent passwd sourabh >/dev/null && usermod -a -G ollama sourabh || true
+systemctl enable ollama.service >/dev/null 2>&1 || true
+# start it now when running on a live system (not while building the image)
+if [ "$(systemctl is-system-running 2>/dev/null)" = running ] || [ "$(systemctl is-system-running 2>/dev/null)" = degraded ]; then
+    systemctl start ollama.service
+fi
+echo "done"

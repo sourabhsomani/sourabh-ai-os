@@ -1,0 +1,12 @@
+{
+  "name": "Summarise documents",
+  "model": "ollama/qwen2.5:0.5b",
+  "system": "You are a concise technical writer.",
+  "prompt": "Summarise the document '{name}' in exactly 3 short bullet points.\n\n{input}",
+  "inputs": {"type": "folder", "path": "inputs/docs", "glob": "*.txt"},
+  "concurrency": 2,
+  "retries": 2,
+  "temperature": 0.2,
+  "max_tokens": 300,
+  "output": "markdown"
+}

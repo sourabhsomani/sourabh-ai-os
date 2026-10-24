@@ -1,0 +1,15 @@
+[Unit]
+Description=Sourabh OS local AI engine (Ollama)
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/ollama serve
+User=ollama
+Group=ollama
+Restart=always
+RestartSec=3
+Environment="OLLAMA_MODELS=/usr/share/ollama/.ollama/models"
+Environment="HOME=/usr/share/ollama"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{
+  "name": "Classify customer feedback",
+  "model": "ollama/qwen2.5:0.5b",
+  "system": "You label customer feedback. Answer with one line only.",
+  "prompt": "Feedback from {customer}: \"{input}\"\n\nReply exactly as: <positive|neutral|negative> | <bug|billing|feature-request|praise|other> | <one-sentence suggested action>",
+  "inputs": {"type": "csv", "path": "inputs/feedback.csv", "column": "text", "id_column": "id"},
+  "concurrency": 4,
+  "temperature": 0,
+  "max_tokens": 80,
+  "output": "text"
+}

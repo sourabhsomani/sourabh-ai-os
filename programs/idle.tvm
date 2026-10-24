@@ -1,0 +1,5 @@
+; idle.tvm - original TinyOS numeric format still works
+6   r4, $0      ; move 0 into r4
+26  r4          ; lower our priority to 0
+6   r2, $-5     ; offset back to the jump
+13  r2          ; loop forever

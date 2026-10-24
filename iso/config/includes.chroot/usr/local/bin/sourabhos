@@ -1,0 +1,5 @@
+#!/bin/sh
+export SOURABHOS_SYSTEM=1
+export PYTHONPATH=/opt/sourabhos${PYTHONPATH:+:$PYTHONPATH}
+export PYTHONDONTWRITEBYTECODE=1
+exec python3 -m sourabhos.main "$@"

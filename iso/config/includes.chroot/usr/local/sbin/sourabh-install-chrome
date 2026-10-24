@@ -1,0 +1,14 @@
+#!/bin/sh
+# Install Google Chrome from Google's official package (adds Google's apt
+# repository, so 'apt upgrade' keeps it up to date).
+set -e
+if command -v google-chrome-stable >/dev/null; then echo "already installed"; exit 0; fi
+DEB=/tmp/google-chrome-stable_current_amd64.deb
+echo "downloading from dl.google.com…"
+curl -fsSL -o "$DEB" https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+echo "downloaded $(du -h "$DEB" | cut -f1)"
+echo "installing…"
+apt-get update -qq || true
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$DEB"
+rm -f "$DEB"
+echo "done: $(google-chrome-stable --version 2>/dev/null)"

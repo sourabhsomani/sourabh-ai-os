@@ -1,0 +1,4 @@
+#!/bin/sh
+# Sourabh OS AI command line: ask | models | pull | run | submit | jobs
+export PYTHONPATH=/opt/sourabhos${PYTHONPATH:+:$PYTHONPATH}
+exec python3 -m sourabhos.ai.cli "$@"

@@ -1,0 +1,17 @@
+# --- boot screen
+plymouth
+# --- AI workstation
+curl
+zstd
+ca-certificates
+pciutils
+python3-pip
+python3-venv
+git
+htop
+openssh-server
+# --- outside apps (Chrome) get real windows via a tiny window manager
+openbox
+wmctrl
+xdg-utils
+fonts-liberation

@@ -1,0 +1,18 @@
+; consumer.tvm - wait for event 1, read the shared region and print the sum
+movi    r1, $1
+waitevent r1          ; sleep until producer signals
+mapsharedmem r1, r2
+acquirelock r1
+movi    r5, $4
+movi    r4, $0        ; sum
+movi    r6, $-55
+printm  r2            ; loop: print [r2]
+movmr   r3, r2
+addr    r4, r3
+addi    r2, $4
+addi    r5, $-1
+cmpi    r5, $0
+jgt     r6
+releaselock r1
+printr  r4            ; sum = 100
+exit
